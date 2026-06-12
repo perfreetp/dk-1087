@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode, useEffect } from 'react';
+import Taro from '@tarojs/taro';
 import type { Topic, Inspiration, ScheduleItem, ArchiveItem, StatusSummary } from '@/types';
 import { mockTopics, mockInspirations, mockSchedule, mockArchives } from '@/data/mock';
 
@@ -27,26 +28,26 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const loadFromStorage = (): { topics: Topic[]; inspirations: Inspiration[]; schedule: ScheduleItem[] } => {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = Taro.getStorageSync(STORAGE_KEY);
     if (stored) {
       return JSON.parse(stored);
     }
   } catch (e) {
     console.error('Failed to load from storage:', e);
   }
-  return { topics: mockTopics, inspirations: mockInspirations, schedule: mockSchedule };
+  return { topics: [...mockTopics], inspirations: [...mockInspirations], schedule: [...mockSchedule] };
 };
 
 const saveToStorage = (data: { topics: Topic[]; inspirations: Inspiration[]; schedule: ScheduleItem[] }) => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    Taro.setStorageSync(STORAGE_KEY, JSON.stringify(data));
   } catch (e) {
     console.error('Failed to save to storage:', e);
   }
 };
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [storageData, setStorageData] = useState(loadFromStorage());
+  const [storageData, setStorageData] = useState<{ topics: Topic[]; inspirations: Inspiration[]; schedule: ScheduleItem[] }>(loadFromStorage);
   
   const topics = storageData.topics;
   const inspirations = storageData.inspirations;
@@ -57,13 +58,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     saveToStorage(storageData);
   }, [storageData]);
 
-  const updateStorage = useCallback((updater: (prev: { topics: Topic[]; inspirations: Inspiration[]; schedule: ScheduleItem[] }) => {
-    setStorageData(prev => {
-      const updated = updater(prev);
-      return updated;
-    });
-  }, []);
-
   const addTopic = useCallback((topicData: Omit<Topic, 'id' | 'createdAt' | 'updatedAt' | 'comments' | 'votes'>) => {
     const newTopic: Topic = {
       ...topicData,
@@ -73,21 +67,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       comments: [],
       votes: []
     };
-    updateStorage(prev => ({ ...prev, topics: [newTopic, ...prev.topics] }));
-  }, [updateStorage]);
+    setStorageData(prev => ({ ...prev, topics: [newTopic, ...prev.topics] }));
+  }, []);
 
   const updateTopic = useCallback((id: string, updates: Partial<Topic>) => {
-    updateStorage(prev => ({ 
+    setStorageData(prev => ({ 
       ...prev, 
       topics: prev.topics.map(topic => 
         topic.id === id ? { ...topic, ...updates, updatedAt: new Date().toISOString().split('T')[0] } : topic
       )
     }));
-  }, [updateStorage]);
+  }, []);
 
   const deleteTopic = useCallback((id: string) => {
-    updateStorage(prev => ({ ...prev, topics: prev.topics.filter(topic => topic.id !== id) }));
-  }, [updateStorage]);
+    setStorageData(prev => ({ ...prev, topics: prev.topics.filter(topic => topic.id !== id) }));
+  }, []);
 
   const addComment = useCallback((topicId: string, content: string) => {
     const newComment = {
@@ -97,13 +91,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       content,
       createdAt: new Date().toLocaleString()
     };
-    updateStorage(prev => ({ 
+    setStorageData(prev => ({ 
       ...prev,
       topics: prev.topics.map(topic => 
         topic.id === topicId ? { ...topic, comments: [...topic.comments, newComment] } : topic
       )
     }));
-  }, [updateStorage]);
+  }, []);
 
   const addVote = useCallback((topicId: string, choice: 'approve' | 'reject') => {
     const newVote = {
@@ -113,13 +107,13 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       choice,
       createdAt: new Date().toISOString().split('T')[0]
     };
-    updateStorage(prev => ({ 
+    setStorageData(prev => ({ 
       ...prev,
       topics: prev.topics.map(topic => 
         topic.id === topicId ? { ...topic, votes: [...topic.votes, newVote] } : topic
       )
     }));
-  }, [updateStorage]);
+  }, []);
 
   const addInspiration = useCallback((inspirationData: Omit<Inspiration, 'id' | 'createdAt' | 'isConverted'>) => {
     const newInspiration: Inspiration = {
@@ -128,11 +122,11 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       createdAt: new Date().toISOString().split('T')[0],
       isConverted: false
     };
-    updateStorage(prev => ({ ...prev, inspirations: [newInspiration, ...prev.inspirations] }));
-  }, [updateStorage]);
+    setStorageData(prev => ({ ...prev, inspirations: [newInspiration, ...prev.inspirations] }));
+  }, []);
 
   const convertInspiration = useCallback((id: string) => {
-    updateStorage(prev => {
+    setStorageData(prev => {
       const inspiration = prev.inspirations.find(insp => insp.id === id);
       if (!inspiration || inspiration.isConverted) {
         return prev;
@@ -161,7 +155,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         topics: [newTopic, ...prev.topics]
       };
     });
-  }, [updateStorage]);
+  }, []);
 
   const addSchedule = useCallback((itemData: Omit<ScheduleItem, 'id' | 'status'>) => {
     const newItem: ScheduleItem = {
@@ -169,17 +163,17 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       id: Date.now().toString(),
       status: 'pending'
     };
-    updateStorage(prev => ({ ...prev, schedule: [...prev.schedule, newItem] }));
-  }, [updateStorage]);
+    setStorageData(prev => ({ ...prev, schedule: [...prev.schedule, newItem] }));
+  }, []);
 
   const updateSchedule = useCallback((id: string, updates: Partial<ScheduleItem>) => {
-    updateStorage(prev => ({ 
+    setStorageData(prev => ({ 
       ...prev,
       schedule: prev.schedule.map(item => 
         item.id === id ? { ...item, ...updates } : item
       )
     }));
-  }, [updateStorage]);
+  }, []);
 
   const getStatusSummary = useCallback((): StatusSummary => {
     const summary: StatusSummary = { pending: 0, recording: 0, editing: 0, pendingPublish: 0, published: 0 };
