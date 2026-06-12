@@ -1,0 +1,280 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding: $page-padding;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xl 0;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.addBtn {
+  background-color: $color-primary;
+  border-radius: $radius-button;
+  padding: 0 $spacing-lg;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.addText {
+  color: $color-text-white;
+  font-size: $font-size-md;
+}
+
+.topicList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.topicCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  
+  &:active {
+    box-shadow: $shadow-card-hover;
+  }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.topicTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.topicStatus {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: $radius-round;
+}
+
+.topicDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-md;
+  @include text-ellipsis-multi(2);
+}
+
+.cardFooter {
+  display: flex;
+  gap: $spacing-lg;
+}
+
+.footerItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.footerLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.footerValue {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.form {
+  padding: $spacing-md 0;
+}
+
+.formItem {
+  margin-bottom: $spacing-md;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.formInput {
+  width: 100%;
+  height: $button-height-md;
+  padding: 0 $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+}
+
+.formTextarea {
+  width: 100%;
+  height: 160rpx;
+  padding: $spacing-sm $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+}
+
+.detailContent {
+  max-height: 60vh;
+}
+
+.detailSection {
+  margin-bottom: $spacing-lg;
+}
+
+.detailLabel {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  margin-bottom: $spacing-sm;
+  display: block;
+}
+
+.detailValue {
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  display: block;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+}
+
+.tag {
+  font-size: $font-size-xs;
+  padding: 4rpx 16rpx;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: $color-primary;
+  border-radius: $radius-round;
+}
+
+.voteSection {
+  margin-bottom: $spacing-lg;
+}
+
+.voteButtons {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.voteBtn {
+  flex: 1;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+  
+  &:active {
+    background-color: $color-bg-hover;
+  }
+}
+
+.voteText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.commentSection {
+  margin-bottom: $spacing-lg;
+}
+
+.commentList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+}
+
+.commentItem {
+  padding: $spacing-md;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+}
+
+.commentUser {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-medium;
+  display: block;
+}
+
+.commentContent {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  margin-top: $spacing-xs;
+  display: block;
+}
+
+.commentTime {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+  display: block;
+}
+
+.noComment {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  text-align: center;
+  padding: $spacing-lg;
+}
+
+.commentInput {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.commentField {
+  flex: 1;
+  height: $button-height-md;
+  padding: 0 $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+  font-size: $font-size-sm;
+}
+
+.commentBtn {
+  background-color: $color-primary;
+  border-radius: $radius-button;
+  padding: 0 $spacing-lg;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.commentBtnText {
+  color: $color-text-white;
+  font-size: $font-size-sm;
+}
+
+.bottomSpace {
+  height: 120rpx;
+}

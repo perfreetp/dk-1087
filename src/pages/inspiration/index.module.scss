@@ -1,0 +1,269 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding: $page-padding;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-xl 0;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.addBtn {
+  background-color: $color-primary;
+  border-radius: $radius-button;
+  padding: 0 $spacing-lg;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.addText {
+  color: $color-text-white;
+  font-size: $font-size-md;
+}
+
+.filterBar {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.filterBtn {
+  flex: 1;
+  background-color: $color-bg-card;
+  border-radius: $radius-button;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+  
+  &:active {
+    background-color: $color-bg-hover;
+  }
+}
+
+.filterActive {
+  background-color: $color-primary;
+}
+
+.filterText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  
+  .filterActive & {
+    color: $color-text-white;
+  }
+}
+
+.stats {
+  display: flex;
+  gap: $spacing-md;
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statCount {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.statLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: $spacing-xs;
+}
+
+.inspirationList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.inspirationCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.typeTag {
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+}
+
+.typeText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.convertedTag {
+  font-size: $font-size-xs;
+  color: $color-success;
+  padding: 4rpx 12rpx;
+  background-color: rgba(16, 185, 129, 0.1);
+  border-radius: $radius-round;
+}
+
+.inspirationTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.inspirationContent {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.inspirationSource {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.tag {
+  font-size: $font-size-xs;
+  padding: 4rpx 16rpx;
+  background-color: rgba(99, 102, 241, 0.1);
+  color: $color-primary;
+  border-radius: $radius-round;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: $spacing-md;
+  border-top: 2rpx solid $color-divider;
+}
+
+.inspirationDate {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.convertBtn {
+  background-color: $color-primary;
+  border-radius: $radius-button;
+  padding: 0 $spacing-md;
+  height: $button-height-sm;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.convertText {
+  color: $color-text-white;
+  font-size: $font-size-xs;
+}
+
+.form {
+  padding: $spacing-md 0;
+}
+
+.formItem {
+  margin-bottom: $spacing-md;
+}
+
+.formLabel {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xs;
+  display: block;
+}
+
+.typeSelector {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.typeBtn {
+  flex: 1;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.typeActive {
+  background-color: $color-primary;
+}
+
+.typeBtnText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  
+  .typeActive & {
+    color: $color-text-white;
+  }
+}
+
+.formInput {
+  width: 100%;
+  height: $button-height-md;
+  padding: 0 $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+}
+
+.formTextarea {
+  width: 100%;
+  height: 160rpx;
+  padding: $spacing-sm $spacing-md;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  font-size: $font-size-md;
+}
+
+.bottomSpace {
+  height: 120rpx;
+}

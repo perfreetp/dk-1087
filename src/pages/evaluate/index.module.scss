@@ -1,0 +1,231 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding: $page-padding;
+}
+
+.header {
+  padding: $spacing-xl 0;
+}
+
+.title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.sortBar {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.sortBtn {
+  flex: 1;
+  background-color: $color-bg-card;
+  border-radius: $radius-button;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.sortActive {
+  background-color: $color-primary;
+}
+
+.sortText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  
+  .sortActive & {
+    color: $color-text-white;
+  }
+}
+
+.evaluateList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.evaluateCard {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.topicTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.averageScore {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.ratingRow {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-md;
+}
+
+.ratingItem {
+  flex: 1;
+  text-align: center;
+}
+
+.ratingLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  display: block;
+  margin-bottom: $spacing-xs;
+}
+
+.ratingStars {
+  font-size: $font-size-sm;
+  display: block;
+  margin-bottom: $spacing-xs;
+  letter-spacing: 2rpx;
+}
+
+.ratingValue {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+.cardActions {
+  display: flex;
+  gap: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 2rpx solid $color-divider;
+}
+
+.actionBtn {
+  flex: 1;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  height: $button-height-md;
+  
+  &::after {
+    border: none;
+  }
+  
+  &:active {
+    background-color: $color-bg-hover;
+  }
+}
+
+.actionText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.modalContent {
+  padding: $spacing-md 0;
+}
+
+.modalTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  text-align: center;
+  display: block;
+  margin-bottom: $spacing-lg;
+}
+
+.ratingSection {
+  margin-bottom: $spacing-lg;
+}
+
+.ratingSectionTitle {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  display: block;
+  margin-bottom: $spacing-sm;
+}
+
+.starSelector {
+  display: flex;
+  gap: $spacing-xs;
+  flex-wrap: wrap;
+}
+
+.starBtn {
+  background: transparent;
+  padding: 0;
+  width: 60rpx;
+  height: 60rpx;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.starActive {
+  background: transparent;
+}
+
+.starText {
+  font-size: $font-size-lg;
+  color: $color-text-disabled;
+  
+  .starActive & {
+    color: #fbbf24;
+  }
+}
+
+.ratingValueText {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+  display: block;
+  text-align: right;
+  margin-top: $spacing-xs;
+}
+
+.averageSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-md;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+}
+
+.averageLabel {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+}
+
+.averageValue {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+}
+
+.exportContent {
+  max-height: 50vh;
+}
+
+.outlineText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-loose;
+  white-space: pre-wrap;
+}
+
+.bottomSpace {
+  height: 120rpx;
+}

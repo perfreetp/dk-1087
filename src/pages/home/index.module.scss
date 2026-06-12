@@ -1,0 +1,169 @@
+@use '@/styles/variables.scss' as *;
+
+.container {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding: $page-padding;
+}
+
+.header {
+  padding: $spacing-xl 0;
+  
+  .greeting {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    display: block;
+  }
+  
+  .date {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    margin-top: $spacing-xs;
+    display: block;
+  }
+}
+
+.statusGrid {
+  display: flex;
+  gap: $spacing-md;
+  margin-bottom: $spacing-xl;
+}
+
+.section {
+  background-color: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  box-shadow: $shadow-card;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.moreBtn {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  
+  &::after {
+    border: none;
+  }
+}
+
+.moreText {
+  font-size: $font-size-sm;
+  color: $color-primary;
+}
+
+.topicList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.topicCard {
+  padding: $spacing-md;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  
+  &:active {
+    background-color: $color-bg-hover;
+  }
+}
+
+.topicHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-sm;
+}
+
+.topicTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+}
+
+.topicStatus {
+  font-size: $font-size-xs;
+  padding: 4rpx 12rpx;
+  background-color: rgba(99, 102, 241, 0.1);
+  border-radius: $radius-round;
+}
+
+.topicDesc {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  margin-bottom: $spacing-sm;
+  @include text-ellipsis-multi(2);
+}
+
+.topicFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topicGuests {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.topicDate {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.quickActions {
+  display: flex;
+  gap: $spacing-md;
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-md;
+  background-color: $color-bg-page;
+  border-radius: $radius-md;
+  
+  &:active {
+    background-color: $color-bg-hover;
+  }
+}
+
+.actionIcon {
+  width: 80rpx;
+  height: 80rpx;
+  background-color: $color-primary;
+  border-radius: $radius-round;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-white;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+}
+
+.actionText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: $spacing-sm;
+}
+
+.bottomSpace {
+  height: 120rpx;
+}
