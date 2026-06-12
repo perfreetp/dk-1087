@@ -9,7 +9,7 @@ const TopicPage: React.FC = () => {
   const { topics, addTopic, addComment, addVote } = useApp();
   
   const [showModal, setShowModal] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(null);
   const [showDetail, setShowDetail] = useState(false);
   const [newTopic, setNewTopic] = useState({
     title: '',
@@ -20,6 +20,8 @@ const TopicPage: React.FC = () => {
     highlights: ''
   });
   const [commentText, setCommentText] = useState('');
+
+  const selectedTopic = topics.find(t => t.id === selectedTopicId) || null;
 
   const handleSubmit = () => {
     if (!newTopic.title.trim()) {
@@ -41,15 +43,15 @@ const TopicPage: React.FC = () => {
   };
 
   const handleAddComment = () => {
-    if (!commentText.trim() || !selectedTopic) return;
-    addComment(selectedTopic.id, commentText);
+    if (!commentText.trim() || !selectedTopicId) return;
+    addComment(selectedTopicId, commentText);
     setCommentText('');
     Taro.showToast({ title: '评论成功', icon: 'success' });
   };
 
   const handleVote = (choice: 'approve' | 'reject') => {
-    if (!selectedTopic) return;
-    addVote(selectedTopic.id, choice);
+    if (!selectedTopicId) return;
+    addVote(selectedTopicId, choice);
     Taro.showToast({ title: '投票成功', icon: 'success' });
   };
 
@@ -94,7 +96,7 @@ const TopicPage: React.FC = () => {
         {topics.map(topic => {
           const voteStats = getVoteStats(topic);
           return (
-            <View key={topic.id} className={styles.topicCard} onClick={() => { setSelectedTopic(topic); setShowDetail(true); }}>
+            <View key={topic.id} className={styles.topicCard} onClick={() => { setSelectedTopicId(topic.id); setShowDetail(true); }}>
               <View className={styles.cardHeader}>
                 <Text className={styles.topicTitle}>{topic.title}</Text>
                 <Text className={styles.topicStatus} style={{ color: getStatusColor(topic.status) }}>

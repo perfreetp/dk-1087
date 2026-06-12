@@ -47,6 +47,10 @@ const InspirationPage: React.FC = () => {
   };
 
   const handleConvert = (id: string) => {
+    const inspiration = inspirations.find(insp => insp.id === id);
+    if (!inspiration || inspiration.isConverted) {
+      return;
+    }
     convertInspiration(id);
     Taro.showToast({ title: '已转为候选选题', icon: 'success' });
   };

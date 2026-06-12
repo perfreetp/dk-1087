@@ -11,6 +11,7 @@ const EvaluatePage: React.FC = () => {
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [currentOutline, setCurrentOutline] = useState('');
   const [rating, setRating] = useState({ freshness: 5, depth: 5, difficulty: 5 });
   const [sortBy, setSortBy] = useState<'freshness' | 'depth' | 'difficulty' | 'average'>('average');
 
@@ -37,17 +38,16 @@ const EvaluatePage: React.FC = () => {
     Taro.showToast({ title: '评分成功', icon: 'success' });
   };
 
-  const handleExport = () => {
-    if (!selectedTopic) return;
-    const outline = exportOutline(selectedTopic.id);
+  const handleExport = (topic: Topic) => {
+    setSelectedTopic(topic);
+    const outline = exportOutline(topic.id);
+    setCurrentOutline(outline);
     setShowExportModal(true);
   };
 
   const handleCopyOutline = () => {
-    if (!selectedTopic) return;
-    const outline = exportOutline(selectedTopic.id);
     Taro.setClipboardData({
-      data: outline,
+      data: currentOutline,
       success: () => {
         Taro.showToast({ title: '已复制到剪贴板', icon: 'success' });
         setShowExportModal(false);
@@ -131,7 +131,7 @@ const EvaluatePage: React.FC = () => {
                 <Button className={styles.actionBtn} onClick={() => { setSelectedTopic(topic); setShowModal(true); }}>
                   <Text className={styles.actionText}>评分</Text>
                 </Button>
-                <Button className={styles.actionBtn} onClick={() => { setSelectedTopic(topic); handleExport(); }}>
+                <Button className={styles.actionBtn} onClick={() => handleExport(topic)}>
                   <Text className={styles.actionText}>导出提纲</Text>
                 </Button>
               </View>
@@ -218,11 +218,9 @@ const EvaluatePage: React.FC = () => {
         onConfirm={handleCopyOutline}
         onCancel={() => setShowExportModal(false)}
       >
-        {selectedTopic && (
-          <ScrollView scrollY className={styles.exportContent}>
-            <Text className={styles.outlineText}>{exportOutline(selectedTopic.id)}</Text>
-          </ScrollView>
-        )}
+        <ScrollView scrollY className={styles.exportContent}>
+          <Text className={styles.outlineText}>{currentOutline}</Text>
+        </ScrollView>
       </Modal>
 
       <View className={styles.bottomSpace} />

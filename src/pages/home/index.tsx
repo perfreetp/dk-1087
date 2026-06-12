@@ -7,9 +7,13 @@ import StatusCard from '@/components/StatusCard';
 import type { Topic } from '@/types';
 
 const HomePage: React.FC = () => {
-  const { topics, getStatusSummary } = useApp();
+  const { topics, getMonthlySummary } = useApp();
   
-  const summary = getStatusSummary();
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  
+  const summary = getMonthlySummary(currentMonth, currentYear);
   
   const recentTopics = topics.slice(0, 3);
   
@@ -41,11 +45,16 @@ const HomePage: React.FC = () => {
     return map[status];
   };
 
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return `${date.getMonth() + 1}月${date.getDate()}日`;
+  };
+
   return (
     <ScrollView className={styles.container} scrollY>
       <View className={styles.header}>
         <Text className={styles.greeting}>本月概览</Text>
-        <Text className={styles.date}>2024年1月</Text>
+        <Text className={styles.date}>{currentYear}年{currentMonth + 1}月</Text>
       </View>
 
       <View className={styles.statusGrid}>
@@ -73,8 +82,8 @@ const HomePage: React.FC = () => {
               </View>
               <Text className={styles.topicDesc}>{topic.description}</Text>
               <View className={styles.topicFooter}>
-                <Text className={styles.topicGuests}>嘉宾：{topic.guests.join('、')}</Text>
-                <Text className={styles.topicDate}>{topic.updatedAt}</Text>
+                <Text className={styles.topicGuests}>嘉宾：{topic.guests.join('、') || '无'}</Text>
+                <Text className={styles.topicDate}>{formatDate(topic.updatedAt)}</Text>
               </View>
             </View>
           ))}
